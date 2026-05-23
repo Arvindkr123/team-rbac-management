@@ -42,9 +42,7 @@ export async function getCurrentUser() {
         // Then check Authorization header
         if (!token) {
             const headersList = await headers();
-
             const authorization = headersList.get("authorization");
-
             if (authorization?.startsWith("Bearer ")) {
                 token = authorization.split(" ")[1];
             }
