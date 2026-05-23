@@ -1,8 +1,8 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken"
 import { Role, User } from "../types";
-import { cookies } from "next/headers";
-import { prisma } from "./db";
+import { cookies, headers } from "next/headers";
+import {prisma}  from "./db";
 
 const JWT_SECRET = process.env.JWT_SECRET as string;
 
@@ -20,30 +20,6 @@ export function generateToken(userId: string): string {
 export function verifyToken(token: string): { userId: string } {
     return jwt.verify(token, JWT_SECRET) as { userId: string };
 }
-export async function getCurrentUser(): Promise<User|null> {
-    try {
-        const cookieStore = await cookies();
-        const token = cookieStore.get("token")?.value;
-        if(!token){
-            return null;
-        }
-        const decode= verifyToken(token);
-        const userFromDB = await prisma.user.findUnique({
-            where: {
-                id: decode.userId
-            }
-        })
-        if(!userFromDB){
-            return null;
-        }
-
-        const {password, ...user} = userFromDB;
-        return user as User;
-    } catch (error) {
-        console.log("Error :", error);
-        return null;
-    }
-}
 
 export function checkUserPermission(user:User, requiredRole:Role) : boolean {
     const roleHierarcy = {
@@ -55,3 +31,43 @@ export function checkUserPermission(user:User, requiredRole:Role) : boolean {
     return roleHierarcy[user.role] > roleHierarcy[requiredRole];
 }
 
+export async function getCurrentUser() {
+    try {
+        let token: string | undefined;
+
+        // First check cookies
+        const cookieStore = await cookies();
+        token = cookieStore.get("token")?.value;
+
+        // Then check Authorization header
+        if (!token) {
+            const headersList = await headers();
+
+            const authorization = headersList.get("authorization");
+
+            if (authorization?.startsWith("Bearer ")) {
+                token = authorization.split(" ")[1];
+            }
+        }
+
+        if (!token) {
+            console.log("No token found");
+            return null;
+        }
+
+        const decoded = jwt.verify(token, JWT_SECRET) as {
+            userId: string;
+        };
+
+        const user = await prisma.user.findUnique({
+            where: {
+                id: decoded.userId,
+            },
+        });
+
+        return user;
+    } catch (error) {
+        console.log("getCurrentUser error", error);
+        return null;
+    }
+}
