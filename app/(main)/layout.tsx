@@ -1,10 +1,12 @@
 import React, { ReactNode } from 'react'
 import Header from '../components/layout/Header'
+import { apiClient } from '../lib/apiClient'
 
-const MainLayout = ({ children }: { children: ReactNode }) => {
+const MainLayout = async({ children }: { children: ReactNode }) => {
+    const user = await apiClient.getCurrentUser()
     return (
         <>
-            <Header user={null} />
+            <Header user={user ?? null} />
             <main className='container mx-auto px-4 py-8'>
                 {children}
             </main>

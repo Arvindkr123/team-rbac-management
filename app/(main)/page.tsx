@@ -1,8 +1,10 @@
+"use client"
 import Link from 'next/link';
-import React from 'react'
+import { useAuth } from '../provider/AuthProvider';
 
 const Home = () => {
-    const user = false;
+    const {user} = useAuth();
+    console.log(user);
     return (
         <div className='max-w-4xl mx-auto'>
             <h1 className='text-3xl font-bold mb-6 text-white'>
@@ -36,7 +38,7 @@ const Home = () => {
             </div>
 
             {
-                !user ? <div className="max-w-md mx-auto mt-10 rounded-2xl border border-blue-500/30 bg-linear-to-br from-slate-900 via-blue-950 to-slate-900 p-6 shadow-2xl backdrop-blur-md">
+                user ? <div className="mt-2 rounded-2xl border border-blue-500/30 bg-linear-to-br from-slate-900 via-blue-950 to-slate-900 p-6 shadow-2xl backdrop-blur-md">
                     <div className="flex items-center gap-3">
                         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-500/20 border border-green-400/30">
                             <span className="text-green-300 text-lg">✓</span>
@@ -58,7 +60,7 @@ const Home = () => {
                             Go to Dashboard
                         </Link>
                     </div>
-                </div> : <div className="max-w-md mx-auto mt-10 rounded-2xl border border-blue-500/30 bg-linear-to-br from-slate-900 via-blue-950 to-slate-900 p-6 shadow-2xl backdrop-blur-md">
+                </div> : <div className="mt-2 rounded-2xl border border-blue-500/30 bg-linear-to-br from-slate-900 via-blue-950 to-slate-900 p-6 shadow-2xl backdrop-blur-md">
                     <div className="flex items-center gap-3">
                         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-500/20 border border-green-400/30">
                             <span className="text-green-300 text-lg">✓</span>

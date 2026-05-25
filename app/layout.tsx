@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { AuthProvider } from "./provider/AuthProvider";
 
 export const metadata: Metadata = {
   title: "Team Access Control",
   description: "Role based access control system built with NextJs 16 & React 19",
-  keywords:['team', "access control"]
+  keywords: ['team', "access control"]
 };
 
 export default function RootLayout({
@@ -18,7 +19,11 @@ export default function RootLayout({
       className={`h-full antialiased`}
       suppressHydrationWarning
     >
-      <body className="min-h-screen bg-slate-900 text-slate">{children}</body>
+      <body className="min-h-screen bg-slate-900 text-slate">
+        <AuthProvider>
+          {children}
+        </AuthProvider>
+      </body>
     </html>
   );
 }

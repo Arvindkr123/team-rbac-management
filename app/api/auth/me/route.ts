@@ -4,7 +4,6 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(request: NextRequest) {
     try {
         const user = await getCurrentUser();
-        console.log('user is ', user);
         if (!user) {
             return NextResponse.json({
                 error: "You are not authenticated"
