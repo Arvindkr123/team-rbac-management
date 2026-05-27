@@ -10,7 +10,7 @@ type Props = {}
 
 const Manager = async (props: Props) => {
   const user = await getCurrentUser() as User;
-  if (!user || !checkUserPermission(user, Role.ADMIN)) {
+  if (!user || !checkUserPermission(user, Role.MANAGER)) {
     redirect("/unauthorized")
   }
   const myTeamMembers = user.teamId ?
@@ -46,7 +46,7 @@ const Manager = async (props: Props) => {
     }
   })
   return (
-    <ManagerDashboard myTeamMembers={TransformUsers(myTeamMembers)} allTeamMembers={TransformTeams(allTeamMembers)} currentUser={user} />
+    <ManagerDashboard myTeamMembers={TransformUsers(myTeamMembers)} allTeamMembers={TransformUsers(allTeamMembers)} currentUser={user} />
   )
 }
 

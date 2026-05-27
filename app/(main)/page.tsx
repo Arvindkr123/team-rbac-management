@@ -4,7 +4,6 @@ import { useAuth } from '../provider/AuthProvider';
 
 const Home = () => {
     const {user} = useAuth();
-    console.log(user);
     return (
         <div className='max-w-4xl mx-auto'>
             <h1 className='text-3xl font-bold mb-6 text-white'>
@@ -45,8 +44,8 @@ const Home = () => {
                         </div>
                         <div>
                             <h2 className="text-xl font-semibold text-white">
-                                Welcome back, <strong>Arvind</strong>! You are loggined as {""}
-                                <strong className='text-green-200'>USER</strong>
+                                Welcome back, <strong>{user.name}</strong>! You are loggined as {""}
+                                <strong className='text-green-200'>{user.role}</strong>
                             </h2>
                         </div>
                     </div>

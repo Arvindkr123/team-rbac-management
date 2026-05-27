@@ -5,13 +5,14 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react';
+import { useAuth } from '@/app/provider/AuthProvider';
 
 interface HeaderProps {
   user: User | null;
 }
 
 const Header = ({ user }: HeaderProps) => {
-  console.log(user,'user in header comp')
+  const {logout} = useAuth();
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -78,10 +79,10 @@ const Header = ({ user }: HeaderProps) => {
             {user ? (
               <div className="flex items-center gap-3">
                 <span className="text-sm text-slate-300">
-                  Arvind User
+                  {user.name} ({user.role})
                 </span>
 
-                <button className="rounded-xl bg-red-500 px-4 py-2 text-sm font-medium text-white transition-all hover:bg-red-600">
+                <button onClick={logout} className="rounded-xl bg-red-500 px-4 py-2 text-sm font-medium text-white transition-all hover:bg-red-600">
                   Logout
                 </button>
               </div>
@@ -146,10 +147,10 @@ const Header = ({ user }: HeaderProps) => {
               {user ? (
                 <>
                   <span className="text-sm text-slate-300">
-                    Arvind User
+                    {user.name} ({user.role})
                   </span>
 
-                  <button className="w-full rounded-xl bg-red-500 px-4 py-3 text-sm font-medium text-white transition hover:bg-red-600">
+                  <button onClick={logout} className="w-full rounded-xl bg-red-500 px-4 py-3 text-sm font-medium text-white transition hover:bg-red-600">
                     Logout
                   </button>
                 </>

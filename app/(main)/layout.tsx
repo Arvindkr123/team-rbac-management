@@ -1,9 +1,10 @@
 import { ReactNode } from 'react'
 import Header from '../components/layout/Header'
-import { apiClient } from '../lib/apiClient'
+import { getCurrentUser } from '../lib/auth'
+import { User } from '../types'
 
 const MainLayout = async({ children }: { children: ReactNode }) => {
-    const user = await apiClient.getCurrentUser()
+    const user = await getCurrentUser() as User;
     console.log('user is main layout is', user);
     return (
         <>
