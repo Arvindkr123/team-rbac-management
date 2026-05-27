@@ -21,14 +21,15 @@ export function verifyToken(token: string): { userId: string } {
     return jwt.verify(token, JWT_SECRET) as { userId: string };
 }
 
-export function checkUserPermission(user:User, requiredRole:Role) : boolean {
+export function checkUserPermission(user: User, requiredRole: Role): boolean {
     const roleHierarcy = {
-        [Role.GUEST]:0,
-        [Role.USER]:1,
-        [Role.MANAGER]:2,
-        [Role.ADMIN]:3,
+        [Role.GUEST]: 0,
+        [Role.USER]: 1,
+        [Role.MANAGER]: 2,
+        [Role.ADMIN]: 3,
     }
-    return roleHierarcy[user.role] > roleHierarcy[requiredRole];
+
+    return roleHierarcy[user.role] >= roleHierarcy[requiredRole];
 }
 
 export async function getCurrentUser() {

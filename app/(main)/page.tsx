@@ -43,7 +43,6 @@ const Home = () => {
                         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-500/20 border border-green-400/30">
                             <span className="text-green-300 text-lg">✓</span>
                         </div>
-
                         <div>
                             <h2 className="text-xl font-semibold text-white">
                                 Welcome back, <strong>Arvind</strong>! You are loggined as {""}
@@ -62,21 +61,15 @@ const Home = () => {
                     </div>
                 </div> : <div className="mt-2 rounded-2xl border border-blue-500/30 bg-linear-to-br from-slate-900 via-blue-950 to-slate-900 p-6 shadow-2xl backdrop-blur-md">
                     <div className="flex items-center gap-3">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-500/20 border border-green-400/30">
-                            <span className="text-green-300 text-lg">✓</span>
-                        </div>
-
                         <div>
                             <h2 className="text-xl font-semibold text-white">
                                 Welcome Back
                             </h2>
-
                             <p className="text-sm text-green-300 mt-1">
-                                You are logged in successfully.
+                                Please log in to continue.
                             </p>
                         </div>
                     </div>
-
                     <div className="mt-6 flex gap-4">
                         <Link
                             href="/login"
@@ -84,7 +77,6 @@ const Home = () => {
                         >
                             Login
                         </Link>
-
                         <Link
                             href="/register"
                             className="flex-1 rounded-xl border border-blue-400/30 bg-white/5 px-4 py-3 text-center font-medium text-blue-100 backdrop-blur-sm transition-all duration-200 hover:bg-white/10 hover:border-blue-300/50 hover:scale-[1.02] active:scale-100"

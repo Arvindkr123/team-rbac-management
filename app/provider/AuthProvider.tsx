@@ -88,7 +88,7 @@ export const AuthProvider = ({
             [Role.MANAGER]: 2,
             [Role.ADMIN]: 3,
         }
-        return roleHierarcy[user.role] > roleHierarcy[requiredRole];
+        return roleHierarcy[user.role] >= roleHierarcy[requiredRole];
     };
 
     useEffect(() => {

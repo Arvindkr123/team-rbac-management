@@ -11,6 +11,7 @@ interface HeaderProps {
 }
 
 const Header = ({ user }: HeaderProps) => {
+  console.log(user,'user in header comp')
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 

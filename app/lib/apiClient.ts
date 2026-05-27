@@ -60,7 +60,7 @@ class ApiClient {
             body:JSON.stringify({role})
         })
     }
-    async updateUserTeam(userId: string, teamId: string) {
+    async updateUserTeam(userId: string, teamId: string|null) {
         return this.request(`/api/user/${userId}/team`, {
             method:"PATCH",
             body:JSON.stringify({teamId})
