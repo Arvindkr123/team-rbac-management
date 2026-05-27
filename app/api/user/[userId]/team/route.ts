@@ -1,6 +1,6 @@
 import { checkUserPermission, getCurrentUser } from "@/app/lib/auth";
+import { prisma } from "@/app/lib/db";
 import { Role, User } from "@/app/types";
-import { prisma } from "@/prisma/seed";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function PATCH(request: NextRequest, context: { params: Promise<{ userId: string }> }) {

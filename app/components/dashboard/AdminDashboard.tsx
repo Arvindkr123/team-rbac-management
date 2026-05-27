@@ -17,7 +17,7 @@ const AdminDashboard = ({ users, teams, currentUser }: AdminDashboardProps) => {
       async () => {
         try {
           await apiClient.updateUserTeam(userId, teamId);
-          // window.location.reload();
+          window.location.reload();
         } catch (error) {
           alert(error instanceof Error ? error.message : "Error updating team assignment")
         }
@@ -33,7 +33,7 @@ const AdminDashboard = ({ users, teams, currentUser }: AdminDashboardProps) => {
       async () => {
         try {
           await apiClient.updateUserRole(userId, newRole);
-          // window.location.reload();
+          window.location.reload();
         } catch (error) {
           alert(error instanceof Error ? error.message : "Error updating role assignment")
         }

@@ -24,51 +24,86 @@ class ApiClient {
         }
 
         if (!response.ok) {
-            const error = await response.json().catch(() => ({ error: "Network error" }))
-            throw new Error(error.error || "Request failed")
+            const error = await response
+                .json()
+                .catch(() => ({
+                    error: "Network error",
+                }));
+
+            throw new Error(
+                error.error || "Request failed"
+            );
         }
+
+        // IMPORTANT
+        return response.json();
     }
 
-    // auth methods
+    // AUTH METHODS
+
     async register(userData: unknown) {
         return this.request("/api/auth/register", {
             method: "POST",
-            body: JSON.stringify(userData)
-        })
+            body: JSON.stringify(userData),
+        });
     }
-    async login(email: string, password: string) {
+
+    async login(
+        email: string,
+        password: string
+    ) {
         return this.request("/api/auth/login", {
             method: "POST",
-            body: JSON.stringify({ email, password })
-        })
+            body: JSON.stringify({
+                email,
+                password,
+            }),
+        });
     }
+
     async logout() {
         return this.request("/api/auth/logout", {
             method: "POST",
-        })
+        });
     }
+
     async getCurrentUser() {
-        return this.request("/api/auth/me")
+        return this.request("/api/auth/me");
     }
-    // user methods
+
+    // USER METHODS
+
     async getUsers() {
-        return this.request("/api/user")
+        return this.request("/api/user");
     }
-    async updateUserRole(userId: string, role: string) {
-        return this.request(`/api/user/${userId}/role`, {
-            method:"PATCH",
-            body:JSON.stringify({role})
-        })
-    }
-    async updateUserTeam(userId: string, teamId: string|null) {
-        return this.request(`/api/user/${userId}/team`, {
-            method:"PATCH",
-            body:JSON.stringify({teamId})
-        })
-    }
-    // admin methods
 
+    async updateUserRole(
+        userId: string,
+        role: string
+    ) {
+        return this.request(
+            `/api/user/${userId}/role`,
+            {
+                method: "PATCH",
+                body: JSON.stringify({ role }),
+            }
+        );
+    }
 
+    async updateUserTeam(
+        userId: string,
+        teamId: string | null
+    ) {
+        return this.request(
+            `/api/user/${userId}/team`,
+            {
+                method: "PATCH",
+                body: JSON.stringify({
+                    teamId,
+                }),
+            }
+        );
+    }
 }
 
 export const apiClient = new ApiClient();
